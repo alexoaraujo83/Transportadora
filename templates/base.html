@@ -1,0 +1,6 @@
+{% load static %}
+<!doctype html><html lang="pt-br"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Fusion Cargas Inteligente</title><link rel="stylesheet" href="{% static 'css/app.css' %}"></head>
+<body><aside><h2>Fusion Cargas</h2><nav>
+<a href="/">Dashboard</a><a href="/clientes/">Clientes</a><a href="/precificacao/tabelas/">Tabela Preços</a><a href="/precificacao/simulador/">Simulador</a><a href="/precificacao/propostas/">Propostas</a><a href="/fretes/">Fretes</a><a href="/motoristas/">Motoristas</a><a href="/transportadoras/">Transportadoras</a><a href="/cotacoes/">Cotações</a><a href="/financeiro/">Financeiro</a><a href="/rastreamento/">Rastreamento</a><a href="/rastreamento/mapa/">Mapa</a><a href="/relatorios/">Relatórios</a><a href="/operacoes/kanban/">Operações</a><a href="/operacoes/risco/">Risco</a><a href="/operacoes/documentos/">Documentos</a><a href="/operacoes/ocorrencias/">Ocorrências</a><a href="/operacoes/tarefas/">Tarefas</a><a href="/notificacoes/">Notificações</a><a href="/api/v1/">API REST</a><a href="/admin/">Admin</a><a href="{% url 'notificacoes:central' %}">Notificações</a>
+</nav></aside>
+<main>{% if messages %}<section class="messages">{% for message in messages %}<p>{{ message }}</p>{% endfor %}</section>{% endif %}{% block content %}{% endblock %}</main></body></html>

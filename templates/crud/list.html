@@ -1,0 +1,5 @@
+{% extends 'base.html' %}{% block content %}
+<div class="page-head"><h1>{{ title|default:titulo|default:'Registros' }}</h1>{% if create_url %}<a class="btn" href="{% url create_url %}">Novo</a>{% endif %}</div>
+<form method="get" class="search"><input name="q" value="{{ request.GET.q }}" placeholder="Buscar..."><button>Buscar</button></form>
+<div class="table-card"><table><thead><tr><th>ID</th><th>Registro</th><th>Ações</th></tr></thead><tbody>{% for obj in object_list %}<tr><td>{{ obj.id }}</td><td>{{ obj }}</td><td><a href="{{ obj.id }}/editar/">Editar</a> · <a href="{{ obj.id }}/excluir/">Excluir</a></td></tr>{% empty %}<tr><td colspan="3">Nenhum registro encontrado.</td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'base.html' %}{% block content %}
+<h1>Gerenciadora de Risco</h1>
+<p>Registro local preparado para integração com gerenciadoras externas.</p>
+<form method="post" class="form-card">{% csrf_token %}{{ form.as_p }}<button type="submit">Registrar consulta</button></form>
+<table><thead><tr><th>Data</th><th>Motorista</th><th>Frete</th><th>Status</th><th>Protocolo</th></tr></thead><tbody>
+{% for c in consultas %}<tr><td>{{ c.criado_em }}</td><td>{{ c.motorista }}</td><td>{{ c.frete|default:'-' }}</td><td>{{ c.status }}</td><td>{{ c.protocolo }}</td></tr>{% empty %}<tr><td colspan="5">Nenhuma consulta.</td></tr>{% endfor %}
+</tbody></table>
+{% endblock %}

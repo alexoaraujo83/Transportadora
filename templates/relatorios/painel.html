@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% block content %}
+<h1>Relatórios</h1>
+<p class="actions"><a href="{% url 'relatorios:fretes_csv' %}">Exportar fretes CSV</a><a href="{% url 'relatorios:financeiro_csv' %}">Exportar financeiro CSV</a><a href="{% url 'relatorios:operacional_csv' %}">Exportar operacional CSV</a><a href="{% url 'relatorios:ocorrencias_csv' %}">Exportar ocorrências CSV</a><a href="{% url 'relatorios:documentos_csv' %}">Exportar documentos CSV</a></p>
+<section class="grid">
+<div class="card"><h2>Fretes por status</h2>{% for item in por_status %}<p>{{ item.status }}: <strong>{{ item.total }}</strong></p>{% endfor %}</div>
+<div class="card"><h2>Financeiro</h2>{% for item in financeiro %}<p>{{ item.tipo }} / Pago {{ item.pago }}: <strong>R$ {{ item.total }}</strong> ({{ item.quantidade }})</p>{% endfor %}</div>
+<div class="card"><h2>Operacional</h2><p>Ocorrências abertas: <strong>{{ ocorrencias_abertas }}</strong></p><p>Tarefas pendentes: <strong>{{ tarefas_pendentes }}</strong></p><p>Documentos pendentes: <strong>{{ documentos_pendentes }}</strong></p></div>
+</section>
+{% endblock %}

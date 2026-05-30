@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block content %}<h1>Notificações</h1>{% for n in notificacoes %}<div class="card"><h3>{{ n.titulo }}</h3><p>{{ n.mensagem }}</p><small>{{ n.criada_em }}</small>{% if not n.lida %}<p><a href="{% url 'notificacoes:lida' n.id %}">Marcar como lida</a></p>{% endif %}</div>{% empty %}<p>Nenhuma notificação.</p>{% endfor %}{% endblock %}

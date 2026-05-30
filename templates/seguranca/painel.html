@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Segurança e Auditoria</h1>
+<p>Eventos críticos/altos registrados: <strong>{{ criticos }}</strong></p>
+<h2>Últimos eventos</h2>
+<table><tr><th>Data</th><th>Tipo</th><th>Severidade</th><th>Usuário</th><th>IP</th><th>Caminho</th><th>Detalhe</th></tr>{% for e in eventos %}<tr><td>{{ e.criado_em }}</td><td>{{ e.tipo }}</td><td>{{ e.severidade }}</td><td>{{ e.usuario|default:'-' }}</td><td>{{ e.ip }}</td><td>{{ e.caminho }}</td><td>{{ e.detalhe }}</td></tr>{% endfor %}</table>
+<h2>Políticas de acesso</h2>
+<table><tr><th>Perfil</th><th>Módulo</th><th>Ver</th><th>Criar</th><th>Editar</th><th>Excluir</th><th>Exportar</th></tr>{% for p in politicas %}<tr><td>{{ p.perfil }}</td><td>{{ p.modulo }}</td><td>{{ p.pode_visualizar }}</td><td>{{ p.pode_criar }}</td><td>{{ p.pode_editar }}</td><td>{{ p.pode_excluir }}</td><td>{{ p.pode_exportar }}</td></tr>{% endfor %}</table>
+{% endblock %}

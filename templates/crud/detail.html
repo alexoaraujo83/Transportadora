@@ -1,0 +1,2 @@
+{% extends 'base.html' %}{% block content %}<h1>Detalhes</h1><div class="detail-card"><h2>{{ objeto }}</h2><pre>{% for field, value in objeto.__dict__.items %}{% if field != '_state' %}{{ field }}: {{ value }}
+{% endif %}{% endfor %}</pre></div><a class="btn" href="editar/">Editar</a><a class="btn secondary" href="../">Voltar</a>{% endblock %}

@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block content %}<h1>Aceite Digital</h1><form method='post'>{% csrf_token %}<input name='nome' placeholder='Nome completo' required><input name='documento' placeholder='CPF/CNPJ'><button type='submit'>Confirmar aceite</button></form>{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}{% block content %}
+<h1>Kanban Operacional</h1>
+<p>Fluxo ponta a ponta: prospecção, agendamento, coleta, trânsito, descarga e cancelamentos.</p><section class="grid"><div class="card"><strong>Ocorrências abertas</strong><h2>{{ abertas }}</h2></div><div class="card"><strong>Tarefas pendentes</strong><h2>{{ tarefas_pendentes }}</h2></div><div class="card"><strong>Documentos pendentes</strong><h2>{{ documentos_pendentes }}</h2></div></section><p class="actions"><a href="{% url 'operacoes:ocorrencias' %}">Ocorrências</a><a href="{% url 'operacoes:tarefas' %}">Tarefas</a><a href="{% url 'operacoes:documentos' %}">Documentos</a></p>
+<div class="kanban">
+{% for status, fretes in colunas.items %}
+  <section class="kanban-col">
+    <h3>{{ status }}</h3>
+    {% for f in fretes %}
+      <article class="card compact">
+        <strong>#{{ f.id }} {{ f.origem }} × {{ f.destino }}</strong>
+        <p>{{ f.carga }} | {{ f.peso_kg }} kg | {{ f.cubagem_m3 }} m³</p>
+        <p>Motorista: {{ f.motorista|default:'pendente' }}</p>
+        <p>Margem: R$ {{ f.margem }}</p>
+        <div class="actions">
+          <a href="{% url 'operacoes:checklist' f.id %}">Checklist</a>
+          <a href="{% url 'operacoes:acao_status' f.id 'prospectar' %}">Prospectar</a>
+          <a href="{% url 'operacoes:acao_status' f.id 'agendar' %}">Agendar</a>
+          <a href="{% url 'operacoes:acao_status' f.id 'coleta' %}">Coleta</a>
+          <a href="{% url 'operacoes:acao_status' f.id 'entregar' %}">Entregar</a>
+        </div>
+      </article>
+    {% empty %}<p class="muted">Sem fretes.</p>{% endfor %}
+  </section>
+{% endfor %}
+</div>
+{% endblock %}

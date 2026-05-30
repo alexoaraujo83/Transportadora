@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block content %}
+<h1>Checklist do Frete #{{ frete.id }}</h1>
+<p><strong>{{ frete.origem }} × {{ frete.destino }}</strong> — {{ checklist.percentual }}% concluído</p>
+<form method="post" class="form-card">{% csrf_token %}{{ form.as_p }}<button type="submit">Salvar checklist</button></form>
+<h2>Ações rápidas</h2>
+<p class="actions"><a href="{% url 'operacoes:acao_status' frete.id 'prospectar' %}">Prospectar</a><a href="{% url 'operacoes:acao_status' frete.id 'agendar' %}">Agendar</a><a href="{% url 'operacoes:acao_status' frete.id 'coleta' %}">Registrar coleta</a><a href="{% url 'operacoes:acao_status' frete.id 'entregar' %}">Registrar descarga</a></p>
+{% endblock %}

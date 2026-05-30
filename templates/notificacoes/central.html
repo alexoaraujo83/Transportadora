@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Central de Notificações</h1>
+<p><strong>{{ nao_lidas }}</strong> notificações não lidas.</p>
+<div id="feed-notificacoes" class="cards">
+  {% for n in notificacoes %}
+    <div class="card {% if not n.lida %}pendente{% endif %}">
+      <h3>{{ n.titulo }}</h3>
+      <p>{{ n.mensagem }}</p>
+      <small>{{ n.get_canal_display }} • {{ n.get_prioridade_display }} • {{ n.criada_em|date:'d/m/Y H:i' }}</small>
+    </div>
+  {% empty %}<p>Nenhuma notificação encontrada.</p>{% endfor %}
+</div>
+<script>
+(function(){
+  const protocolo = window.location.protocol === 'https:' ? 'wss' : 'ws';
+  const ws = new WebSocket(`${protocolo}://${window.location.host}/ws/notificacoes/`);
+  ws.onmessage = function(event){
+    const data = JSON.parse(event.data);
+    if(data.tipo !== 'notificacao') return;
+    const feed = document.getElementById('feed-notificacoes');
+    const card = document.createElement('div');
+    card.className='card pendente';
+    card.innerHTML=`<h3>${data.titulo}</h3><p>${data.mensagem}</p><small>${data.canal} • ${data.prioridade}</small>`;
+    feed.prepend(card);
+  };
+})();
+</script>
+{% endblock %}

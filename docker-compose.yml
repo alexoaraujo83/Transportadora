@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-fusion_cargas}
+      POSTGRES_USER: ${POSTGRES_USER:-fusion}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-fusion123}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+  web:
+    build: .
+    command: sh ./scripts/entrypoint.sh
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+volumes:
+  postgres_data:

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}{% block content %}
+<h1>Financeiro profissional</h1>
+<div class="grid">
+  <div class="card"><strong>Receitas</strong><br>R$ {{ dre.receitas }}</div>
+  <div class="card"><strong>Despesas</strong><br>R$ {{ dre.despesas }}</div>
+  <div class="card"><strong>Lucro bruto</strong><br>R$ {{ dre.lucro_bruto }}</div>
+  <div class="card"><strong>Margem</strong><br>{{ dre.margem_percentual|floatformat:2 }}%</div>
+</div>
+<p><a class="btn" href="{% url 'financeiro:dre_csv' %}">Exportar DRE CSV</a> <a class="btn" href="{% url 'financeiro:contas_csv' %}">Exportar contas CSV</a></p>
+<div class="grid">
+<section class="card"><h2>Contas abertas</h2><ul>{% for c in contas_abertas %}<li>{{ c.vencimento }} — {{ c.natureza }} — {{ c.descricao }} — R$ {{ c.saldo }}</li>{% empty %}<li>Nenhuma conta aberta.</li>{% endfor %}</ul></section>
+<section class="card"><h2>Repasses pendentes</h2><ul>{% for r in repasses_pendentes %}<li>Frete #{{ r.frete_id }} — {{ r.motorista }} — R$ {{ r.saldo }} — {{ r.status }}</li>{% empty %}<li>Nenhum repasse pendente.</li>{% endfor %}</ul></section>
+<section class="card"><h2>Comissões pendentes</h2><ul>{% for c in comissoes_pendentes %}<li>Frete #{{ c.frete_id }} — {{ c.usuario }} — R$ {{ c.valor }} — {{ c.status }}</li>{% empty %}<li>Nenhuma comissão pendente.</li>{% endfor %}</ul></section>
+</div>
+{% endblock %}
